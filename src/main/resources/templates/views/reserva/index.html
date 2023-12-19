@@ -8,44 +8,44 @@
 			<div class="dropdown">
 				<a class="btn btnGroupFor dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 					aria-expanded="false">
-					<i class="bi bi-person-fill-gear fs-4 me-2"></i>
+					<i class="fa fa-tree"></i>
 
 				</a>
 				<div class="dropdown-menu">
 					<a class="dropdown-item" href="/clientes">
-						<i class="bi bi-people"></i>
+						<i class="fa fa-address-card"></i>
 						Clientes
 					</a>
 					<a class="dropdown-item" href="/destino">
-						<i class="bi bi-geo-alt"></i>
+						<i class="fa fa-plane"></i>
 						Destinos
 					</a>
 					<a class="dropdown-item" href="/promocao">
-						<i class="bi bi-tags"></i>
+						<i class="fa fa-calculator"></i>
 						Promoções
 					</a>
 					<a class="dropdown-item" href="/reservas">
-						<i class="bi bi-cart"></i>
+						<i class="fa fa-tree"></i>
 						Reservas
 					</a>
 
-					<hr class="dropdown-divider">
 				</div>
 			</div>
 			<div class="p-4">
-				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Novo
-					Usuario </button>
+				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Nova
+					Reserva </button>
 
 				<table class="table table-responsive table-hover">
 					<thead class="table-dark">
 						<tr>
-							<th scope="col">id</th>
+							<th scope="col">ID</th>
 							<th scope="col">Nome</th>
 							<th scope="col">Data Ida</th>
 							<th scope="col">Data volta</th>
 							<th scope="col">País</th>
 							<th scope="col">Promoção</th>
 							<th scope="col">Valor Total</th>
+							<th scope="col">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -54,13 +54,153 @@
 							<td th:text="${r.cliente.nome}" class="name"></td>
 							<td th:text="${r.dataIda}"></td>
 							<td th:text="${r.dataRetorno}"></td>
-							<td th:text="${r.promocao.precoPromo}"></td>
 							<td th:text="${r.destino.pais}"></td>
-							<td th:text="${r.valor - r.promocao.precoPromo}"></td>
+							<td th:text="${r.promocao.precoPromo}"></td>
+							<td th:text="${(r.valor + r.destino.preco) - r.promocao.precoPromo}"></td>
+							<td>
+								<div class="d-flex">
+									<a th:href="@{'/reservas'}" data-bs-toggle="modal"
+										th:data-bs-target="'#exampleModal' + ${r.id}" class="mx-1" title="Editar">
+										<button class="btn btn-primary">Editar</button>
+									</a>
+									<a th:href="@{'/reservas/' + ${r.id} + '/excluir'}" class="mx-1" title="Cancelar"
+										onclick="return confirm('Deseja excluir o usuario ?')">
+										<button class="btn btn-danger">Excluir</button>
+									</a>
+
+									<!-- Modal -->
+									<div class="modal fade" th:id="'exampleModal' + ${r.id}" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel"> Atualizar </h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form th:action="@{/reservas/cadastrar}" method="post"
+														th:object="${reserva}">
+
+														<input type="hidden" id="id" name="id" class="form-control"
+															th:value="${r.id}" />
+														<div class="form-group mb-3">
+															<label for="Nome" class="form-label">
+																Nome
+															</label>
+															<input readonly type="text" id="nome" name="nome"
+																class="form-control" th:value="${r.cliente.nome}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="ida" class="form-label">
+																Data Ida
+															</label>
+															<input type="text" id="dataIda" name="dataIda"
+																class="form-control" th:value="${r.dataIda}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="duracao" class="form-label">
+																Data Retorno
+															</label>
+															<input type="text" id="dataRetorno" name="dataRetorno"
+																class="form-control" th:value="${r.dataRetorno}" />
+														</div>
+														
+														<div class="form-group mb-3">
+															<label for="pais" class="form-label">
+																País
+															</label>
+															<input readonly type="text" id="pais" name="pais"
+																class="form-control" th:value="${r.destino.pais}" />
+														</div>
+														
+														<div class="form-group mb-3">
+															<label for="preco" class="form-label">
+																Promoção
+															</label>
+															<input readonly type="text" id="precoPromo" name="precoPromo"
+																class="form-control" th:value="${r.promocao.precoPromo}" />
+														</div>
+														
+														<button type="submit" class="btn btn-primary">
+															Enviar
+														</button>
+														<a href="./reservas" class="btn btn-danger"
+															style="margin-left: 10px">
+															Cancelar
+														</a>
+													</form>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel"> Cadastrar </h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/reservas/cadastrar}" method="post" th:object="${reserva}">
+							
+							<div class="form-group mb-3">
+								<label for="cliente" class="form-label"> Cliente</label> 
+								<select id="cliente" name="cliente.id"  class="form-control">
+									<option value="DEFAULT">Escolha um Cliente</option> 
+									<option th:each="c : ${listCli}" th:value="${c.id}" th:text="${c.nome}"></option>
+								</select>
+							</div>
+							
+							<div class="form-group mb-3">
+								<label for="dataIda" class="form-label"> Data Ida</label> 
+								<input type="date" id="dataIda" name="dataIda"  class="form-control" value="" />
+							</div>
+							
+							
+							
+							<div class="form-group mb-3">
+								<label for="dataRetorno" class="form-label"> Data Retorno</label> 
+								<input type="date" id="dataRetorno" name="dataRetorno"  class="form-control" value="" />
+							</div>
+							
+							<div class="form-group mb-3">
+								<label for="valor" class="form-label">Valor</label> 
+								<input type="text" id="valor" name="valor"  class="form-control" value="" />
+							</div>
+							
+							
+							<div class="form-group mb-3">
+								<label for="promocao" class="form-label"> Promoção </label> 
+								<select id="promocao" name="promocao.id"  class="form-control">
+									<option value="DEFAULT">Escolha uma Promoção</option> 
+									<option th:each="p : ${listPromo}" th:value="${p.id}" th:text="${p.precoPromo}"></option>
+								</select>
+							</div>
+							<div class="form-group mb-3">
+								<label for="destino" class="form-label"> Destino </label> 
+								<select id="destino" name="destino.id"class="form-control">
+									<option value="DEFAULT">Escolha um Destino</option>
+									<option th:each="d : ${listDest}" th:value="${d.id}" th:text="${d.pais}"></option>
+								</select>
+							</div>
+							
+							<button type="submit" class="btn btn-primary">Enviar</button>
+							<a href="./reservas" class="btn btn-danger" style="margin-left: 10px"> Cancelar </a>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
 		</section>
 	</main>
 </body>

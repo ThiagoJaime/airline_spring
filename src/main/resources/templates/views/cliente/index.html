@@ -128,55 +128,60 @@
 					</tbody>
 				</table>
 			</div>
-			
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel"> Cadastrar </h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form th:action="@{/clientes/cadastrar}" method="post" th:object="${cliente}">
-							
-							<div class="form-group mb-3">
-								<label for="nome" class="form-label">
-									Nome
-								</label>
-								<input type="text" th:id="nome" th:name="nome" class="form-control" th:field="*{nome}" />
-							</div>
-							<div class="form-group mb-3">
-								<label for="email" class="form-label">
-									Email
-								</label>
-								<input type="email" th:id="email" th:name="email" class="form-control" th:field="*{email}" />
-							</div>
-							<div class="form-group mb-3">
-								<label for="telefone" class="form-label">
-									telefone
-								</label>
-								<input type="text" th:id="telefone" th:name="telefone" class="form-control" th:field="*{telefone}" />
-							</div>
-							<div class="form-group mb-3">
-								<label for="senha" class="form-label">
-									Senha
-								</label>
-								<input type="password" th:id="senha" th:name="senha" class="form-control" th:field="*{senha}" />
-							</div>
 
-							<button type="submit" class="btn btn-primary">
-								Enviar
-							</button>
-							<a href="./clientes" class="btn btn-danger" style="margin-left: 10px">
-								Cancelar
-							</a>
-						</form>
-					</div>
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel"> Cadastrar </h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/clientes/cadastrar}" method="post" th:object="${cliente}">
 
+								<div class="form-group mb-3">
+									<label for="nome" class="form-label">
+										Nome
+									</label>
+									<input type="text" th:id="nome" th:name="nome" class="form-control"
+										th:field="*{nome}" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="email" class="form-label">
+										Email
+									</label>
+									<input type="email" th:id="email" th:name="email" class="form-control"
+										th:field="*{email}" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="telefone" class="form-label">
+										telefone
+									</label>
+									<input type="text" th:id="telefone" th:name="telefone" class="form-control"
+										th:field="*{telefone}" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="senha" class="form-label">
+										Senha
+									</label>
+									<input type="password" th:id="senha" th:name="senha" class="form-control"
+										th:field="*{senha}" />
+								</div>
+
+								<button type="submit" class="btn btn-primary">
+									Enviar
+								</button>
+								<a href="./clientes" class="btn btn-danger" style="margin-left: 10px">
+									Cancelar
+								</a>
+							</form>
+						</div>
+
+					</div>
 				</div>
 			</div>
-		</div>
-			
+
 		</section>
 	</main>
 </body>

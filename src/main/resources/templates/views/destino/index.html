@@ -8,33 +8,33 @@
 			<div class="dropdown">
 				<a class="btn btnGroupFor dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 					aria-expanded="false">
-					<i class="bi bi-person-fill-gear fs-4 me-2"></i>
+					<i class="fa fa-plane"></i>
 
 				</a>
 				<div class="dropdown-menu">
 					<a class="dropdown-item" href="/clientes">
-						<i class="bi bi-people"></i>
+						<i class="fa fa-address-card"></i>
 						Clientes
 					</a>
 					<a class="dropdown-item" href="/destino">
-						<i class="bi bi-geo-alt"></i>
+						<i class="fa fa-plane"></i>
 						Destinos
 					</a>
 					<a class="dropdown-item" href="/promocao">
-						<i class="bi bi-tags"></i>
+						<i class="fa fa-calculator"></i>
 						Promoções
 					</a>
 					<a class="dropdown-item" href="/reservas">
-						<i class="bi bi-cart"></i>
+						<i class="fa fa-tree"></i>
 						Reservas
 					</a>
 
-					<hr class="dropdown-divider">
+					
 				</div>
 			</div>
 			<div class="p-4">
 				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Novo
-					Usuario </button>
+					Destino </button>
 
 				<table class="table table-responsive table-hover">
 					<thead class="table-dark">
@@ -52,11 +52,121 @@
 							<td th:text="${d.pais}" class="name"></td>
 							<td th:text="${d.preco}"></td>
 							<td th:text="${d.duracao}"></td>
-							<td></td>
+							<td>
+								<div class="d-flex">
+									<a th:href="@{'/destino'}" data-bs-toggle="modal"
+										th:data-bs-target="'#exampleModal' + ${d.id}" class="mx-1" title="Editar">
+										<button class="btn btn-primary">Editar</button>
+									</a>
+									<a th:href="@{'/destino/' + ${d.id} + '/excluir'}" class="mx-1" title="Cancelar"
+										onclick="return confirm('Deseja excluir o usuario ?')">
+										<button class="btn btn-danger">Excluir</button>
+									</a>
+
+									<!-- Modal -->
+									<div class="modal fade" th:id="'exampleModal' + ${d.id}" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel"> Atualizar </h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form th:action="@{/destino/cadastrar}" method="post"
+														th:object="${destino}">
+
+														<input type="hidden" id="id" name="id" class="form-control"
+															th:value="${d.id}" />
+														<div class="form-group mb-3">
+															<label for="pais" class="form-label">
+																País
+															</label>
+															<input type="text" id="pais" name="pais"
+																class="form-control" th:value="${d.pais}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="preco" class="form-label">
+																Preço
+															</label>
+															<input type="text" id="preco" name="preco"
+																class="form-control" th:value="${d.preco}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="duracao" class="form-label">
+																Duração
+															</label>
+															<input type="text" id="duracao" name="duracao"
+																class="form-control" th:value="${d.duracao}" />
+														</div>
+														
+														<button type="submit" class="btn btn-primary">
+															Enviar
+														</button>
+														<a href="./destino" class="btn btn-danger"
+															style="margin-left: 10px">
+															Cancelar
+														</a>
+													</form>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel"> Cadastrar </h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/destino/cadastrar}" method="post" th:object="${destino}">
+
+								<div class="form-group mb-3">
+									<label for="pais" class="form-label">
+										País
+									</label>
+									<input type="text" th:id="páis" th:name="pais" class="form-control"
+										th:field="*{pais}" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="preco" class="form-label">
+										Preço
+									</label>
+									<input type="text" th:id="preco" th:name="preco" class="form-control"
+										th:field="*{preco}" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="duracao" class="form-label">
+										Duração
+									</label>
+									<input type="text" th:id="duracao" th:name="duracao" class="form-control"
+										th:field="*{duracao}" />
+								</div>
+								
+								<button type="submit" class="btn btn-primary">
+									Enviar
+								</button>
+								<a href="./destino" class="btn btn-danger" style="margin-left: 10px">
+									Cancelar
+								</a>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
 		</section>
 	</main>
 </body>
