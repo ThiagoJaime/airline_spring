@@ -58,7 +58,7 @@
 							<td th:text="${r.promocao.precoPromo}"></td>
 							<td th:text="${(r.valor + r.destino.preco) - r.promocao.precoPromo}"></td>
 							<td>
-								<div class="d-flex">
+								<div class="d-flex buttons">
 									<a th:href="@{'/reservas'}" data-bs-toggle="modal"
 										th:data-bs-target="'#exampleModal' + ${r.id}" class="mx-1" title="Editar">
 										<button class="btn btn-primary">Editar</button>

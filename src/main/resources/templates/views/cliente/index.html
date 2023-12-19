@@ -29,7 +29,6 @@
 						Reservas
 					</a>
 
-					<hr class="dropdown-divider">
 				</div>
 			</div>
 			<div class="p-4">
@@ -53,7 +52,7 @@
 							<td th:text="${c.email}"></td>
 							<td th:text="${c.telefone}"></td>
 							<td>
-								<div class="d-flex">
+								<div class="d-flex buttons">
 									<a th:href="@{'/clientes'}" data-bs-toggle="modal"
 										th:data-bs-target="'#exampleModal' + ${c.id}" class="mx-1" title="Editar">
 										<button class="btn btn-primary">Editar</button>

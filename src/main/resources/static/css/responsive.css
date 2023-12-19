@@ -151,7 +151,9 @@
 	.desc-tabs .nav-tabs>li>a { padding: 17px 10px 17px 10px;}
 
 	.blog-head h2 {font-size: 18px;}
-
+	
+	.table, .btn {font-size: 10px;}
+	
 }/*max-width:640px*/
 
 @media screen and (max-width: 575px) {
@@ -221,6 +223,9 @@
 
 	.single-special-shape-txt {left: 10px;}
 	
+	.buttons {flex-direction: column;}
+	.table, .btn {font-size: 7px;}
+	.btn { margin-block: 2px;}
 	
 }/*max-width:480px*/
 
@@ -247,7 +252,9 @@
 	.custom-input-group .subscribe-btn {float: left;top: 76px;}
 	.custom-input-group .form-control {padding-right: 0px;font-size: 13px;}
 
-
+	
+	
+	
 }/*max-width:400px*/
 
 

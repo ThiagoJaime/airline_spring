@@ -40,6 +40,15 @@
 
 .fa-star:before {content: "\f005"}
 
+main > section {
+	min-height: 400px;
+}
+
+.dropdown > a {
+	padding-left: 24px;
+	font-size: 20px;
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
