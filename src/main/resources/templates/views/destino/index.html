@@ -1,0 +1,62 @@
+<html th:replace="~{layout :: layout ('Clientes', ~{::main}, ~{::styles}, ~{::script})}">
+
+<head></head>
+
+<body>
+	<main>
+		<section class="container">
+			<div class="dropdown">
+				<a class="btn btnGroupFor dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+					aria-expanded="false">
+					<i class="bi bi-person-fill-gear fs-4 me-2"></i>
+
+				</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="/clientes">
+						<i class="bi bi-people"></i>
+						Clientes
+					</a>
+					<a class="dropdown-item" href="/destino">
+						<i class="bi bi-geo-alt"></i>
+						Destinos
+					</a>
+					<a class="dropdown-item" href="/promocao">
+						<i class="bi bi-tags"></i>
+						Promoções
+					</a>
+					<a class="dropdown-item" href="/reservas">
+						<i class="bi bi-cart"></i>
+						Reservas
+					</a>
+
+					<hr class="dropdown-divider">
+				</div>
+			</div>
+			<div class="p-4">
+				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Novo
+					Usuario </button>
+
+				<table class="table table-responsive table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">País</th>
+							<th scope="col">Preço</th>
+							<th scope="col">Duração</th>
+							<th scope="col">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="d : ${destinos}">
+							<td th:text="${d.id}"></td>
+							<td th:text="${d.pais}" class="name"></td>
+							<td th:text="${d.preco}"></td>
+							<td th:text="${d.duracao}"></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+</body>

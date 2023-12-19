@@ -1,0 +1,184 @@
+<html th:replace="~{layout :: layout ('Clientes', ~{::main}, ~{::styles}, ~{::script})}">
+
+<head></head>
+
+<body>
+	<main>
+		<section class="container">
+			<div class="dropdown">
+				<a class="btn btnGroupFor dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+					aria-expanded="false">
+					<i class="fa fa-address-card"></i>
+
+				</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="/clientes">
+						<i class="fa fa-address-card"></i>
+						Clientes
+					</a>
+					<a class="dropdown-item" href="/destino">
+						<i class="fa fa-plane"></i>
+						Destinos
+					</a>
+					<a class="dropdown-item" href="/promocao">
+						<i class="fa fa-calculator"></i>
+						Promoções
+					</a>
+					<a class="dropdown-item" href="/reservas">
+						<i class="fa fa-tree"></i>
+						Reservas
+					</a>
+
+					<hr class="dropdown-divider">
+				</div>
+			</div>
+			<div class="p-4">
+				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2"> Novo
+					Cliente </button>
+
+				<table class="table table-responsive table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Email</th>
+							<th scope="col">Telefone</th>
+							<th scope="col">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="c : ${clientes}">
+							<td th:text="${c.id}"></td>
+							<td th:text="${c.nome}" class="name"></td>
+							<td th:text="${c.email}"></td>
+							<td th:text="${c.telefone}"></td>
+							<td>
+								<div class="d-flex">
+									<a th:href="@{'/clientes'}" data-bs-toggle="modal"
+										th:data-bs-target="'#exampleModal' + ${c.id}" class="mx-1" title="Editar">
+										<button class="btn btn-primary">Editar</button>
+									</a>
+									<a th:href="@{'/clientes/' + ${c.id} + '/excluir'}" class="mx-1" title="Cancelar"
+										onclick="return confirm('Deseja excluir o usuario ?')">
+										<button class="btn btn-danger">Excluir</button>
+									</a>
+
+									<!-- Modal -->
+									<div class="modal fade" th:id="'exampleModal' + ${c.id}" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel"> Atualizar </h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form th:action="@{/clientes/cadastrar}" method="post"
+														th:object="${cliente}">
+
+														<input type="hidden" id="id" name="id" class="form-control"
+															th:value="${c.id}" />
+														<div class="form-group mb-3">
+															<label for="nome" class="form-label">
+																Nome
+															</label>
+															<input type="text" id="nome" name="nome"
+																class="form-control" th:value="${c.nome}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="email" class="form-label">
+																Email
+															</label>
+															<input type="email" id="email" name="email"
+																class="form-control" th:value="${c.email}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="email" class="form-label">
+																Telefone
+															</label>
+															<input type="text" id="telefone" name="telefone"
+																class="form-control" th:value="${c.telefone}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="senha" class="form-label">
+																Senha
+															</label>
+															<input type="password" id="senha" name="senha"
+																class="form-control" th:value="${c.senha}" />
+														</div>
+
+														<button type="submit" class="btn btn-primary">
+															Enviar
+														</button>
+														<a href="./clientes" class="btn btn-danger"
+															style="margin-left: 10px">
+															Cancelar
+														</a>
+													</form>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel"> Cadastrar </h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/clientes/cadastrar}" method="post" th:object="${cliente}">
+							
+							<div class="form-group mb-3">
+								<label for="nome" class="form-label">
+									Nome
+								</label>
+								<input type="text" th:id="nome" th:name="nome" class="form-control" th:field="*{nome}" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="email" class="form-label">
+									Email
+								</label>
+								<input type="email" th:id="email" th:name="email" class="form-control" th:field="*{email}" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="telefone" class="form-label">
+									telefone
+								</label>
+								<input type="text" th:id="telefone" th:name="telefone" class="form-control" th:field="*{telefone}" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="senha" class="form-label">
+									Senha
+								</label>
+								<input type="password" th:id="senha" th:name="senha" class="form-control" th:field="*{senha}" />
+							</div>
+
+							<button type="submit" class="btn btn-primary">
+								Enviar
+							</button>
+							<a href="./clientes" class="btn btn-danger" style="margin-left: 10px">
+								Cancelar
+							</a>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+			
+		</section>
+	</main>
+</body>
+
+</html>
